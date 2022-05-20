@@ -5,7 +5,8 @@ import PostListItem from "../post-list-item";
 
 const PostList = ({ posts }) => {
   const elememts = posts.map((item) => {
-    return <PostListItem label={item.label} isImportant={item.isImportant} />;
+    const { ...itemProps } = item;
+    return <PostListItem {...itemProps} />;
   });
   return <ul className="app-list list-group">{elememts}</ul>;
 };
