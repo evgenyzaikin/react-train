@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import AppHeader from "../app-header";
@@ -9,13 +9,47 @@ import PostAddForm from "../post-add-form/post-add-form";
 
 function App() {
   const data = [
-    { label: "Hi, I'm a first tweet!", isImportant: true },
-    { label: "I'm a second tweet!", isImportant: false },
+    { label: "Hi, I'm a first tweet!", id: 1, important: false, like: true },
+    { label: "I'm a second tweet!", id: 2, important: true, like: false },
     {
       label: "Yep, this is third tweet, how did you guess?",
-      isImportant: false,
+      id: 3,
+      important: false,
+      like: false,
     },
   ];
+
+  const [state, setState] = useState({
+    data,
+  });
+
+  const onToggleLike = (id) => {
+    setState(({ data }) => {
+      const index = data.findIndex((elem) => elem.id === id);
+      const old = data[index];
+      const newItem = { ...old, like: !old.like };
+      const newArr = [
+        ...data.slice(0, index),
+        newItem,
+        ...data.slice(index + 1),
+      ];
+      return { data: newArr };
+    });
+  };
+
+  const onToggleImportant = (id) => {
+    setState(({ data }) => {
+      const index = data.findIndex((elem) => elem.id === id);
+      const old = data[index];
+      const newItem = { ...old, important: !old.important };
+      const newArr = [
+        ...data.slice(0, index),
+        newItem,
+        ...data.slice(index + 1),
+      ];
+      return { data: newArr };
+    });
+  };
 
   return (
     <div className="app">
@@ -24,7 +58,11 @@ function App() {
         <SearchPanel />
         <PostStatusFilter />
       </div>
-      <PostList posts={data}/>
+      <PostList
+        posts={state.data}
+        onToggleLike={onToggleLike}
+        onToggleImportant={onToggleImportant}
+      />
       <PostAddForm />
     </div>
   );

@@ -3,10 +3,17 @@ import "./post-list.css";
 
 import PostListItem from "../post-list-item";
 
-const PostList = ({ posts }) => {
+const PostList = ({ posts, onToggleLike, onToggleImportant }) => {
   const elememts = posts.map((item) => {
-    const { ...itemProps } = item;
-    return <PostListItem {...itemProps} />;
+    const { id, ...itemProps } = item;
+    return (
+      <PostListItem
+        key={id}
+        {...itemProps}
+        onToggleLike={() => onToggleLike(id)}
+        onToggleImportant={() => onToggleImportant(id)}
+      />
+    );
   });
   return <ul className="app-list list-group">{elememts}</ul>;
 };
