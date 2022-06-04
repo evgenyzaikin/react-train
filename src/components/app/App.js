@@ -51,9 +51,17 @@ function App() {
     });
   };
 
+  const allPostsCount = state.data.length;
+  const likedPostsCount = state.data.filter(
+    (post) => post.like === true
+  ).length;
+
   return (
     <div className="app">
-      <AppHeader />
+      <AppHeader
+        allPostsCount={allPostsCount}
+        likedPostsCount={likedPostsCount}
+      />
       <div className="search-panel d-flex">
         <SearchPanel />
         <PostStatusFilter />
