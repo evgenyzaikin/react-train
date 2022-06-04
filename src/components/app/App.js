@@ -21,6 +21,7 @@ function App() {
 
   const [state, setState] = useState({
     data,
+    maxId: 4,
   });
 
   const onToggleLike = (id) => {
@@ -33,7 +34,7 @@ function App() {
         newItem,
         ...data.slice(index + 1),
       ];
-      return { data: newArr };
+      return { ...state, data: newArr };
     });
   };
 
@@ -47,7 +48,21 @@ function App() {
         newItem,
         ...data.slice(index + 1),
       ];
-      return { data: newArr };
+      return { ...state, data: newArr };
+    });
+  };
+
+  const addPost = (text) => {
+    setState(({ data, maxId }) => {
+      const newPost = {
+        label: text,
+        id: maxId,
+        like: false,
+        important: false,
+      };
+      const newArr = [...data, newPost];
+      const newId = maxId + 1;
+      return { ...state, data: newArr, maxId: newId };
     });
   };
 
@@ -55,7 +70,7 @@ function App() {
     setState(({ data }) => {
       const index = data.findIndex((elem) => elem.id === id);
       const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
-      return { data: newArr };
+      return { ...state, data: newArr };
     });
   };
 
@@ -80,7 +95,7 @@ function App() {
         onToggleImportant={onToggleImportant}
         onDelete={deletePost}
       />
-      <PostAddForm />
+      <PostAddForm onAdd={addPost} />
     </div>
   );
 }
