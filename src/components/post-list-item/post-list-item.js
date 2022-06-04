@@ -7,6 +7,7 @@ const PostListItem = ({
   like = false,
   onToggleLike,
   onToggleImportant,
+  deletePost,
 }) => {
   let classes = "app-list-item d-flex justify-content-between";
 
@@ -27,7 +28,7 @@ const PostListItem = ({
           <i className="fa fa-star"></i>
         </button>
         <button type="button" className="btn-trash btn-sm">
-          <i className="fa fa-trash-o"></i>
+          <i className="fa fa-trash-o" onClick={() => deletePost()}></i>
         </button>
         <i className="fa fa-heart" onClick={() => onToggleLike()}></i>
       </div>

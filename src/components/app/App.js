@@ -51,6 +51,14 @@ function App() {
     });
   };
 
+  const deletePost = (id) => {
+    setState(({ data }) => {
+      const index = data.findIndex((elem) => elem.id === id);
+      const newArr = [...data.slice(0, index), ...data.slice(index + 1)];
+      return { data: newArr };
+    });
+  };
+
   const allPostsCount = state.data.length;
   const likedPostsCount = state.data.filter(
     (post) => post.like === true
@@ -70,6 +78,7 @@ function App() {
         posts={state.data}
         onToggleLike={onToggleLike}
         onToggleImportant={onToggleImportant}
+        deletePost={deletePost}
       />
       <PostAddForm />
     </div>
