@@ -3,7 +3,7 @@ import "./post-list.css";
 
 import PostListItem from "../post-list-item";
 
-const PostList = ({ posts, onToggleLike, onToggleImportant, deletePost }) => {
+const PostList = ({ posts, onToggleLike, onToggleImportant, onDelete }) => {
   const elememts = posts.map((item) => {
     const { id, ...itemProps } = item;
     return (
@@ -12,7 +12,7 @@ const PostList = ({ posts, onToggleLike, onToggleImportant, deletePost }) => {
         {...itemProps}
         onToggleLike={() => onToggleLike(id)}
         onToggleImportant={() => onToggleImportant(id)}
-        deletePost={() => deletePost(id)}
+        onDelete={() => onDelete(id)}
       />
     );
   });

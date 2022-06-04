@@ -78,7 +78,7 @@ function App() {
         posts={state.data}
         onToggleLike={onToggleLike}
         onToggleImportant={onToggleImportant}
-        deletePost={deletePost}
+        onDelete={deletePost}
       />
       <PostAddForm />
     </div>
